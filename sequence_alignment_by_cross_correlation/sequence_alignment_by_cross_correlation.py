@@ -215,7 +215,7 @@ def calcScore(seq1: str,seq2: str):
     
     matches = 0
     for i in range(total):
-        if seq1[i] == seq2[i]:
+        if seq1[i] == seq2[i] or seq1[i] == 'N' or seq2[i]=='N':
             matches += 1
 
     return matches, total
@@ -304,7 +304,7 @@ def align(inputseq1: str, inputseq2: str):
         matches, total = calcScore(seq1[startpos_seqence:endpos_sequence],seq2_rc[:])
     #+1 because of the index starting at 0, but the bp refference starts a 1 in most tools
     prnt(f':flag_in_hole: The matching sequnce starts at the index {startpos_seqence+1} and ends at {endpos_sequence+1}')
-    prnt(f':slot_machine: The number of matching basepairs for a shift of {shift} is {matches}/{total} ≈ {(matches/total)*100}%')
+    prnt(f':slot_machine: The number of matching basepairs for a shift of {shift} is {matches}/{total} ≈ {round((matches/total)*100,2)}%')
     prnt(f':file_folder: Your file was saved at {os.getcwd()}/{dataending}')
     plt.show()
 
