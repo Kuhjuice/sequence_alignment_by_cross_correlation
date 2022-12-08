@@ -228,7 +228,7 @@ Project Link: [https://github.com/kuhjuice/sequence_alignment_by_cross_correlati
 [license-shield]: https://img.shields.io/github/license/kuhjuice/sequence_alignment_by_cross_correlation.svg?style=for-the-badge
 [license-url]: https://github.com/kuhjuice/sequence_alignment_by_cross_correlation/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
+[linkedin-url]: https://linkedin.com/in/bpbk
 [product-screenshot]: images/productScreenshot.png
 [usage-screenshot]: images/usagescreenshot.png
 [help-screenshot]: images/helpScreenshot.png
