@@ -82,11 +82,11 @@ app = typer.Typer()
 def verify(sequence: str) -> list:
     '''This code verfies if a sequence is a DNA or RNA'''
     #convert the input sequence to a set
-    #this reduces the string into a set with all uniqe chars e.g. set('ACACTATCTAG') is {'A', 'C', 'G', 'T'}
+    #this reduces the string into a set with all unique chars e.g. set('ACACTATCTAG') is {'A', 'C', 'G', 'T'}
     seq = set(sequence)
 
     #now we see if our seq set is a subset {"A", "T", "C", "G", "N"}
-    #its important to check for the subset, because a sequcence like "CGNNNNNNNCG" would not be verifyed if we would compare the union
+    #its important to check for the subset, because a sequence like "CGNNNNNNNCG" would not be verified if we would compare the union
     if seq.issubset({"A", "T", "C", "G", "N"}):
         return [True, "DNA"]
     
@@ -106,7 +106,7 @@ def transform(seq: str) -> str:
     elif verify(seq)[1] == 'RNA':
         seq = [sub.replace('A', '0+1j').replace('U', '0-1j').replace('G', '1+0j').replace('C', '-1+0j').replace('N', '+0+0j') for sub in list(seq)]
     
-    #since replace wont take anything else than str, we need to convert befor returning it
+    #since replace wont take anything else than str, we need to convert before returning it
     for c in seq:
         trans_seq.append(complex(c))
     return trans_seq
@@ -232,6 +232,8 @@ def align(inputseq1: str, inputseq2: str):
     #Check if the sequence is DNA/RNA
     if verify(inputseq1)[0] == True:
         seq1 = inputseq1
+        prnt(f":white_check_mark: [bold green]Klappt![/bold green] [white]Sequenz 1 wurde importiert[/white]")
+        prnt(f':dna: Es handelt sich um [bold green]{verify(seq1)[1]}[/] mit einer Länge von [yellow]{len(seq1)} bp[/]')
 
     #If not, interprete as a file
     else:
@@ -247,6 +249,8 @@ def align(inputseq1: str, inputseq2: str):
     #same as with inputseq1...
     if verify(inputseq2)[0] == True:
         seq2 = inputseq2
+        prnt(f":white_check_mark: [bold green]Klappt![/bold green] [white]Sequenz 2 wurde importiert[/white]")
+        prnt(f':dna: Es handelt sich um [bold green]{verify(seq2)[1]}[/] mit einer Länge von [yellow]{len(seq2)} bp[/]')
     else:
         try:
             head2, seq2 = openAsFile(inputseq2)
@@ -259,7 +263,11 @@ def align(inputseq1: str, inputseq2: str):
     #the longer sequence should be seq1
     if len(seq2) > len(seq1):
         seq1, seq2 = seq2, seq1
-        prnt(f":repeat: [bold yellow]Klappt![/bold yellow] [white]Die Sequenzen wurden getauscht (1 -> 2 und 2 -> 1)[/white]")
+        try:
+            head1, head2 = head2, head1
+        except:
+            pass
+        prnt(f":repeat: [bold yellow]Achtung![/bold yellow] [white]Die Sequenzen wurden getauscht (1 -> 2 und 2 -> 1)[/white]")
 
     #If both of the sequences are loaded, transform them into a complex representation
     a = np.array(transform(seq1))

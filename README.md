@@ -83,7 +83,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-The project is based on the paper [Sequence Alignment by Cross-Correlation](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2291754/) and bridges the gap between the knowledge and an useful implementation. The underlying technique is the correlation algorithm, which can be tested in this [notebook](https://makeabilitylab.github.io/physcomp/signals/ComparingSignals/index.html).
+The project is based on the paper [Sequence Alignment by Cross-Correlation](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2291754/) and bridges the gap between the knowledge and an useful implementation. The underlying technique is the cross correlation algorithm, which can be tested in this [notebook](https://makeabilitylab.github.io/physcomp/signals/ComparingSignals/index.html).
+
+Another [notebook](https://colab.research.google.com/drive/1XC0AIqli6igxuDt0phcmZCu5IK5tiV7W?usp=sharing) can be seen here. The focus of this notebook is to illustrate how we can use the cross correlation for genomic data.
 
 The gene sequences were obtained using the [NCBI](https://www.ncbi.nlm.nih.gov/gene/) database.
 
