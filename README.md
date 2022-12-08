@@ -34,10 +34,10 @@
     <img style='border-radius:30px' src="images/logo.png" alt="Logo" width="120" height="120">
   </a>
 
-<h3 align="center">Sequnce Alignment<br>by cross correlation</h3>
+<h3 align="center">Sequence Alignment<br>by cross correlation</h3>
 
   <p align="center">
-    This is an implementation of the cross correlation algorithem for DNA/RNA alignment
+    This is an implementation of the cross correlation algorithm for DNA/RNA alignment
     <br />
     <a href="https://github.com/kuhjuice/sequence_alignment_by_cross_correlation"><strong>Explore the docs »</strong></a>
     <br />
