@@ -99,7 +99,7 @@ ENV/
 /site
 
 # generated results
-/results/*
+
 
 # mypy
 .mypy_cache/
