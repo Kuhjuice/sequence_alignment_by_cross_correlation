@@ -83,8 +83,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+The project is based on the paper [Sequence Alignment by Cross-Correlation](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2291754/) and bridges the gap between the knowledge and an useful implementation. The underlying technique is the correlation algorithm, which can be tested in this [notebook](https://makeabilitylab.github.io/physcomp/signals/ComparingSignals/index.html).
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Example Screen Shot][product-screenshot]](https://example.com)
 
 <!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `kuhjuice`, `sequence_alignment_by_cross_correlation`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description` -->
 
@@ -133,7 +134,7 @@ Executing the following will search for the omcB Gene in the genome of Chlamydia
 python3 sequence_alignment_by_cross_correlation/sequence_alignment_by_cross_correlation.py 'sequencesToTest/C_T_genome.fasta' 'sequencesToTest/omcB_C_T_100fit.fna'
    ```
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Usage Screen Shot][usage-screenshot]](https://example.com)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -214,7 +215,8 @@ Project Link: [https://github.com/kuhjuice/sequence_alignment_by_cross_correlati
 [license-url]: https://github.com/kuhjuice/sequence_alignment_by_cross_correlation/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/usagescreenshot.png
+[product-screenshot]: images/productScreenshot.png
+[usage-screenshot]: images/usagescreenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
