@@ -102,8 +102,10 @@ def transform(seq: str) -> str:
     trans_seq = []
     #this check is not really needed, but its nice to have
     if verify(seq)[1] == 'DNA':
+        #replace the chars with the corresponding Base
         seq = [sub.replace('A', '0+1j').replace('T', '0-1j').replace('G', '1+0j').replace('C', '-1+0j').replace('N', '+0+0j') for sub in list(seq)]
     elif verify(seq)[1] == 'RNA':
+        #replace the chars with the corresponding Base
         seq = [sub.replace('A', '0+1j').replace('U', '0-1j').replace('G', '1+0j').replace('C', '-1+0j').replace('N', '+0+0j') for sub in list(seq)]
     
     #since replace wont take anything else than str, we need to convert before returning it
@@ -115,7 +117,7 @@ def transform(seq: str) -> str:
 def reverse(seq: str) -> str:
     '''This function returns a reverse complement
     of a DNA or RNA strand'''
-
+    #this walkes though the list from start to finish with the step size -1 (aka, reversing)
     seq = seq[::-1]
     return seq
 
@@ -123,18 +125,23 @@ def reverse(seq: str) -> str:
 def compliment(seq: str) -> str:
     '''This function returns a reverse complement
     of a DNA or RNA strand'''
+    #See if sequence is valid
     verified = verify(seq)
     if verified[1] == "DNA":
 
-        # complement strand
+        # complement the strand
+        # only upper sequence to not have to deal with this herdal
         seq = seq.upper()
+        #switch bases and join them together
         seq = ''.join(basenDNA.get(ch) for ch in seq)
         return seq
  
     elif verified[1] == "RNA":
 
         # complement strand
+        # only upper sequence to not have to deal with this herdal
         seq = seq.upper()
+        #switch bases and join them together
         seq = ''.join(basenRNA.get(ch) for ch in seq)
         return seq
 
@@ -143,6 +150,8 @@ def compliment(seq: str) -> str:
 
 #Reads the file and cleans it up
 def openAsFile(filepath: str) -> str:
+    #opens the file and joins the lines together in a header part and a sequnce part
+    #TODO: Deal with white spaces at the end and also deal with multiple sequnces in one file
     file = open(filepath)
     selection = file.read()
     file.close()
@@ -152,6 +161,8 @@ def openAsFile(filepath: str) -> str:
     return header, sequence
 
 def saveAsFile(information: list, filepath: str) -> None:
+    #write the list of information in a file
+
     fileToSave = open(filepath, 'w')
     
     for info in information:
@@ -164,20 +175,21 @@ def evalResults(correlate1: np.array, correlate2: np.array, b_shift_positions: n
     y1 = correlate1
     y2 = correlate2
 
-    #for y1:
+    #for y1 calculate some statistical values:
     y1_avg = np.average(correlate1)
     y1_prct80 =np.percentile(y1,80)
     y1_std = np.std(y1)
     y1_limit = 4*(y1_std+y1_avg) + y1_prct80
     numberOfPeaks_y1 = sum(y1 > y1_limit)
 
-    #for y2:
+    #for y2 calculate some statistical values:
     y2_avg = np.average(correlate2)
     y2_prct80 =np.percentile(y2,80)
     y2_std = np.std(y2)
     y2_limit = 4*(y2_std+y2_avg) + y2_prct80
     numberOfPeaks_y2 = sum(y2 > y2_limit)
 
+    #draw a plot with the data
     figure, axis = plt.subplots(1, 2)
 
     axis[0].plot(x, y1)
@@ -188,20 +200,30 @@ def evalResults(correlate1: np.array, correlate2: np.array, b_shift_positions: n
     axis[1].plot([x[0],x[-1]], [y2_limit,y2_limit])
     axis[1].set_title("correlation2")
     
+    #here we evaluate what a peak is
+    #if one or both #peaks are zero, this could mean that we have a clear peak (if not both are zero (case is not catches here))
     if numberOfPeaks_y1 == 0 or numberOfPeaks_y2 == 0:
         prnt(':sparkles: Clean result')
+
+        #the correlation with the highest number of peaks wins the race
         if numberOfPeaks_y1 > numberOfPeaks_y2:
+            #the highest peaks will be returned
             prnt(f':point_right: Die höchste Übereinstimmung mit einem score von {correlate1[correlate1.argmax()]} ist bei einer Verschiebung von {b_shift_positions[correlate1.argmax()]} bp vorhanden')
             return y1, b_shift_positions[correlate1.argmax()], numberOfPeaks_y1, 1
         elif numberOfPeaks_y2 > numberOfPeaks_y1:
+            #the highest peaks will be returned
             prnt(f':point_right: Die höchste Übereinstimmung mit einem score von {correlate2[correlate2.argmax()]} ist bei einer Verschiebung von {b_shift_positions[correlate2.argmax()]} bp vorhanden')
             return y2, b_shift_positions[correlate2.argmax()], numberOfPeaks_y2, 2
         else:
+            #in this case both of correlations did not return any peaks
+            #this is where we take the highest correlation result and return it 
             prnt(':heavy_exclamation_mark: No result was found, check the limit!')
             prnt(':heavy_exclamation_mark: Fallbackmethod initiated!')
             prnt(':heavy_exclamation_mark: Since there was no match found, the result with the highest score will make the race. Check the graphs to know whats going on :)')
+            #we will tell the user the highest result for each correlation
             prnt(f' :keycap_digit_one: Eine Übereinstimmung mit einem score von {y1[y1.argmax()]} ist bei einer Verschiebung von {b_shift_positions[y1.argmax()]} bp vorhanden')
             prnt(f' :keycap_digit_two: Die zweite Übereinstimmung mit einem score von {y2[y2.argmax()]} ist bei einer Verschiebung von {b_shift_positions[y2.argmax()]} bp vorhanden')
+            
             if y1.argmax() >= y2.argmax():
                 return y2, b_shift_positions[correlate2.argmax()], numberOfPeaks_y2, 2
             else:
@@ -210,10 +232,14 @@ def evalResults(correlate1: np.array, correlate2: np.array, b_shift_positions: n
         prnt(':heavy_exclamation_mark: We need to work on the limit :/')
 
 def calcScore(seq1: str,seq2: str):
+    #this calculates the similarity of the two sequnces on a base to base bassis
+
+    #asser as sanity check
     assert len(seq1) == len(seq2)
     total = len(seq1)
     
     matches = 0
+    #count matches
     for i in range(total):
         if seq1[i] == seq2[i] or seq1[i] == 'N' or seq2[i]=='N':
             matches += 1
@@ -227,6 +253,7 @@ def calcScore(seq1: str,seq2: str):
 #                               #
 #################################
 
+#This signals out CLI to make this an executable command
 @app.command()
 def align(inputseq1: str, inputseq2: str):
     #Check if the sequence is DNA/RNA
@@ -263,6 +290,7 @@ def align(inputseq1: str, inputseq2: str):
     #the longer sequence should be seq1
     if len(seq2) > len(seq1):
         seq1, seq2 = seq2, seq1
+        #string inputs (not files) have no header and this is why we need to mitigate this with "try"
         try:
             head1, head2 = head2, head1
         except:
@@ -292,9 +320,12 @@ def align(inputseq1: str, inputseq2: str):
     endpos_sequence = len(a) + shift
     startpos_seqence = endpos_sequence - len(b)
 
+    #sanity check again
     assert endpos_sequence - startpos_seqence == len(seq2)
 
+    #num is the correlation that contained the highest peak
     if num == 1:
+        #use datetime to create unique filenames
         dataending = datetime.now().strftime('results/sequenceallignment_%d%b%Y_%H_%M_%S.txt')
         saveAsFile([seq1[startpos_seqence:endpos_sequence]+'\n', seq2[:]],dataending)
         matches, total = calcScore(seq1[startpos_seqence:endpos_sequence],seq2[:])
