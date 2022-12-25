@@ -106,7 +106,19 @@ To get a local copy up and running follow these simple example steps.
 This is an example of how to list things you need to use the software and how to install them.
 * python3: https://realpython.com/installing-python/
 
-### Installation
+### Installation for Users:
+1. pip install
+```sh
+ pip install sequence-alignment-by-cross-correlation
+```
+
+2. Use
+```sh
+ python3 -m sequence-alignment-by-cross-correlation.sequence-alignment-by-cross-correlation
+```
+Have to figure out how to reduce the amount of string for this module...
+
+### Installation for DEVS
 
 1. Clone the repo
    ```sh
@@ -124,7 +136,7 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    pip3 install -r requirements.txt
    ```
-4. Ask the CLI for help with
+4. Ask the CLI for help
    ```sh
    python3 sequence_alignment_by_cross_correlation.py --help
    ```
