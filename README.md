@@ -211,7 +211,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Bo Kern - [@blood_in_the_water@chaos.social ](https://chaos.social/@blood_in_the_water) - bo@blackscript.de
+Bo Kern -  kern@blackscript.de
 
 Project Link: [https://github.com/kuhjuice/sequence_alignment_by_cross_correlation](https://github.com/kuhjuice/sequence_alignment_by_cross_correlation)
 
